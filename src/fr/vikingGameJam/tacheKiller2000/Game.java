@@ -2,6 +2,7 @@ package fr.vikingGameJam.tacheKiller2000;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -13,6 +14,7 @@ public class Game extends ApplicationAdapter
 	SpriteBatch batch;
 	Texture moustacheTexture;
 	private float stateTime;
+	private float posX;
 
 	@Override
 	public void create()
@@ -20,6 +22,7 @@ public class Game extends ApplicationAdapter
 		batch = new SpriteBatch();
 		moustacheTexture = new Texture("assets/moustache.png");
 		stateTime = 0;
+		posX = 0;
 
 		{
 			Sprite[] moustacheFrames = new Sprite[6];
@@ -27,10 +30,10 @@ public class Game extends ApplicationAdapter
 			int height = 64;
 			int nbFrames = 6;
 			for (int i = 0; i < nbFrames; i++)
-				moustacheFrames[i] = new Sprite(moustacheTexture, i * width/nbFrames, 0,
-						width/nbFrames, height);
+				moustacheFrames[i] = new Sprite(moustacheTexture, i * width
+						/ nbFrames, 0, width / nbFrames, height);
 			moustache = new Animation(0.2F, moustacheFrames);
-			moustache.setPlayMode(Animation.PlayMode.LOOP);
+			moustache.setPlayMode(Animation.PlayMode.LOOP_RANDOM);
 		}
 	}
 
@@ -41,9 +44,15 @@ public class Game extends ApplicationAdapter
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+			posX -= 10;
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+			posX += 10;
+		
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime/100), 0, 64);
+		batch.draw(moustache.getKeyFrame(stateTime / 10), posX, 64);
 		batch.end();
-		stateTime ++;
+		stateTime++;
 	}
 }
