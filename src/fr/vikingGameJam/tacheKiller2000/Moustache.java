@@ -1,11 +1,12 @@
 package fr.vikingGameJam.tacheKiller2000;
-import com.badlogic.gdx.Gdx;
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Moustache extends Animation
 {
 	private int coordY;
+	private final int WIDTH = 174;
 	
 	public Moustache(float frameDuration, TextureRegion[] keyFrames)
 	{
@@ -20,7 +21,7 @@ public class Moustache extends Animation
 
 	public void setCoordY(int coordY)
 	{
-		if(-1024*0.1F <= coordY && coordY < Gdx.graphics.getWidth() + 1024*0.1F)
+		if(-WIDTH/2 <= coordY && coordY < Game.WIDTH - WIDTH/2)
 			this.coordY = coordY;
 	}
 	
