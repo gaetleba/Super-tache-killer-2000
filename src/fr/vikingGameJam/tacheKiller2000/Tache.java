@@ -1,6 +1,5 @@
 package fr.vikingGameJam.tacheKiller2000;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -9,6 +8,8 @@ public class Tache extends Animation
 	private int coordX;
 	private int coordY;
 	
+	private int height = 64;
+	
 	private int valueForMove;
 	private int valueForMoveActual;
 	
@@ -16,12 +17,12 @@ public class Tache extends Animation
 	
 	private Moustache moustache;
 	
-	public Tache(TextureRegion[] keyFrames, Moustache moustache)
+	public Tache(float frameDuration, TextureRegion[] keyFrames, Moustache moustache)
 	{
 		super(250, keyFrames);
 		setPlayMode(Animation.PlayMode.LOOP);
-		coordX = Gdx.graphics.getHeight();
-		coordY = (int)(Math.random() * Gdx.graphics.getWidth());
+		coordY = Game.HEIGHT - height;
+		coordX = (int)(Math.random() * Game.WIDTH);
 		valueForMove = (int)(Math.random() * 10);
 		valueForMoveActual = 0;
 		this.moustache = moustache;
@@ -29,7 +30,7 @@ public class Tache extends Animation
 		iaNumber = (int)(Math.random() * 3);
 		//On corse un peu :)
 		if(iaNumber == 2)
-			setFrameDuration(125);
+			setFrameDuration(250);
 	}
 	
 	public int getCoordX() {
@@ -57,7 +58,7 @@ public class Tache extends Animation
 	 */
 	public void move()
 	{
-		coordX -= 10;
+		coordY -= 10;
 		
 		switch (iaNumber)
 		{
@@ -90,13 +91,11 @@ public class Tache extends Animation
 	
 	public void moveLeft()
 	{
-		setCoordY(getCoordY() - 10);
+		coordX -= 10;
 	}
 	
 	public void moveRight()
 	{
-		setCoordY(getCoordY() + 10);
+		coordX += 10;
 	}
-	
-	
 }

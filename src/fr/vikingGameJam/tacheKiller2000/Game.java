@@ -27,18 +27,17 @@ public class Game extends ApplicationAdapter
 		batch = new SpriteBatch();
 		moustacheTexture = new Texture("assets/moustache.png");
 		stateTime = 0;
+		taches = new LinkedList<Tache>();
 
-		{
-			Sprite[] moustacheFrames = new Sprite[6];
+		{// Creation moustache
+			int nbFrames = 6;
+			Sprite[] moustacheFrames = new Sprite[nbFrames];
 			int width = 1024;
 			int height = 64;
-			int nbFrames = 6;
 			for (int i = 0; i < nbFrames; i++)
 				moustacheFrames[i] = new Sprite(moustacheTexture, i * width
 						/ nbFrames, 0, width / nbFrames, height);
 			moustache = new Moustache(0.2F, moustacheFrames);
-			
-			taches = new LinkedList<Tache>();
 		}
 	}
 
@@ -52,11 +51,30 @@ public class Game extends ApplicationAdapter
 			moustache.moveLeft();
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 			moustache.moveRight();
+		for (Tache tache : taches)
+			tache.move();
+		
 		
 		batch.begin();
 		batch.draw(moustache.getKeyFrame(stateTime/20), moustache.getCoordY(), 0);
+		for (Tache tache : taches)
+			batch.draw(tache.getKeyFrame(stateTime/20), tache.getCoordX(), tache.getCoordY());
+		if (stateTime % 10 == 0)
+			taches.add(createTache());
 		batch.end();
 		
 		stateTime ++;
+	}
+
+	private Tache createTache()
+	{
+		int nbFrames = 1;
+		Sprite[] tacheFrames = new Sprite[nbFrames];
+		int width = 64;
+		int height = 64;
+		for (int i = 0; i < nbFrames; i++)
+			tacheFrames[i] = new Sprite(new Texture("assets/tache_0.png"), i * width, 0, width, height);
+		Tache tache = new Tache(0.2F, tacheFrames, moustache);
+		return tache;
 	}
 }
