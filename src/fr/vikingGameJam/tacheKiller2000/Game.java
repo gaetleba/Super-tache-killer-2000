@@ -48,7 +48,7 @@ public class Game extends ApplicationAdapter
 			moustache.moveRight();
 		
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime/10), moustache.getCoordY(), 64);
+		batch.draw(moustache.getKeyFrame(stateTime/10), moustache.getCoordY(), 0);
 		batch.end();
 		
 		stateTime ++;
