@@ -1,5 +1,7 @@
 package fr.vikingGameJam.tacheKiller2000;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -15,6 +17,7 @@ public class Game extends ApplicationAdapter
 	Texture moustacheTexture;
 	private float stateTime;
 	private Moustache moustache;
+	private LinkedList<Tache> taches;
 
 	@Override
 	public void create()
@@ -32,7 +35,8 @@ public class Game extends ApplicationAdapter
 				moustacheFrames[i] = new Sprite(moustacheTexture, i * width
 						/ nbFrames, 0, width / nbFrames, height);
 			moustache = new Moustache(0.2F, moustacheFrames);
-			moustache.setPlayMode(Animation.PlayMode.LOOP_RANDOM);
+			
+			taches = new LinkedList<>();
 		}
 	}
 
