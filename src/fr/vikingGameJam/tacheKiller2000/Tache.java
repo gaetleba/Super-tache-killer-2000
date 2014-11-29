@@ -21,7 +21,7 @@ public class Tache extends Animation
 	
 	public Tache(float frameDuration, TextureRegion[] keyFrames, Moustache moustache)
 	{
-		super(250, keyFrames);
+		super(frameDuration, keyFrames);
 		
 		if(++frameNumberCpt == 10)
 		{
@@ -38,9 +38,6 @@ public class Tache extends Animation
 		this.moustache = moustache;
 		
 		iaNumber = (int)(Math.random() * 3);
-		//On corse un peu :)
-		if(iaNumber == 2)
-			setFrameDuration(250);
 	}
 	
 	public int getCoordX() {
@@ -129,5 +126,15 @@ public class Tache extends Animation
 			return true;
 		}
 		return false;
+	}
+
+	public boolean isOut()
+	{
+		return coordY < -size;
+	}
+
+	public int getRightCorner()
+	{
+		return coordX + size;
 	}
 }
