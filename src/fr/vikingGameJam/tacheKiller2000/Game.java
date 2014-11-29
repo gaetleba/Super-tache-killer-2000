@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,7 +15,7 @@ public class Game extends ApplicationAdapter
 {
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 860;
-	
+
 	SpriteBatch batch;
 	Texture moustacheTexture;
 	private float stateTime;
@@ -30,14 +31,15 @@ public class Game extends ApplicationAdapter
 		taches = new LinkedList<Tache>();
 
 		{// Creation moustache
-			int nbFrames = 6;
+			int nbFrames = 16;
 			Sprite[] moustacheFrames = new Sprite[nbFrames];
-			int width = 1024;
+			int width = 128;
 			int height = 64;
 			for (int i = 0; i < nbFrames; i++)
-				moustacheFrames[i] = new Sprite(moustacheTexture, i * width
-						/ nbFrames, 0, width / nbFrames, height);
+				moustacheFrames[i] = new Sprite(moustacheTexture, i * width, 0,
+						width, height);
 			moustache = new Moustache(0.2F, moustacheFrames);
+			moustache.setPlayMode(PlayMode.LOOP);
 		}
 	}
 
@@ -53,17 +55,18 @@ public class Game extends ApplicationAdapter
 			moustache.moveRight();
 		for (Tache tache : taches)
 			tache.move();
-		
-		
+
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime/20), moustache.getCoordY(), 0);
+		batch.draw(moustache.getKeyFrame(stateTime / 10),
+				moustache.getCoordY(), 0);
 		for (Tache tache : taches)
-			batch.draw(tache.getKeyFrame(stateTime/20), tache.getCoordX(), tache.getCoordY());
+			batch.draw(tache.getKeyFrame(stateTime / 20), tache.getCoordX(),
+					tache.getCoordY());
 		if (stateTime % 10 == 0)
 			taches.add(createTache());
 		batch.end();
-		
-		stateTime ++;
+
+		stateTime++;
 	}
 
 	private Tache createTache()
@@ -73,7 +76,8 @@ public class Game extends ApplicationAdapter
 		int width = 64;
 		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/tache_0.png"), i * width, 0, width, height);
+			tacheFrames[i] = new Sprite(new Texture("assets/tache_0.png"), i
+					* width, 0, width, height);
 		Tache tache = new Tache(0.2F, tacheFrames, moustache);
 		return tache;
 	}
