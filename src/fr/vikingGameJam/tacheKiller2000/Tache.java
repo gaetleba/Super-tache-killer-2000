@@ -8,22 +8,32 @@ public class Tache extends Animation
 	private int coordX;
 	private int coordY;
 	
-	private int height = 64;
+	private int size = 64;
 	
 	private int valueForMove;
 	private int valueForMoveActual;
 	
 	private int iaNumber;
 	
+	public static int frameNumber = 250;
+	public static int frameNumberCpt = 0;
 	private Moustache moustache;
 	
 	public Tache(float frameDuration, TextureRegion[] keyFrames, Moustache moustache)
 	{
 		super(250, keyFrames);
+		
+		if(++frameNumberCpt == 10)
+		{
+			if(frameNumber > 2)
+				frameNumber--;
+			frameNumberCpt = 0;
+		}
+		
 		setPlayMode(Animation.PlayMode.LOOP);
-		coordY = Game.HEIGHT - height;
+		coordY = Game.HEIGHT - size;
 		coordX = (int)(Math.random() * Game.WIDTH);
-		valueForMove = (int)(Math.random() * 10);
+		valueForMove = (int)(Math.random() * 10) + 10;
 		valueForMoveActual = 0;
 		this.moustache = moustache;
 		
@@ -64,9 +74,15 @@ public class Tache extends Animation
 		{
 			case 1:
 				if(++valueForMoveActual < 0)
-					moveLeft();
+				{
+					if( ! moveLeft())
+						valueForMoveActual = 0;
+				}
 				else
-					moveRight();
+				{
+					if( ! moveRight())
+						valueForMoveActual = -valueForMove;
+				}
 				
 				if(valueForMoveActual >= valueForMove)
 					valueForMoveActual = -valueForMove;
@@ -81,21 +97,37 @@ public class Tache extends Animation
 	
 			default:
 				if((int)(Math.random() * 2) == 0)
-					moveLeft();
+				{
+					if( ! moveLeft())
+						moveRight();
+				}
 				else
-					moveRight();
+					if( ! moveRight())
+					{
+						moveLeft();
+					}
 			break;
 		}
 		
 	}
 	
-	public void moveLeft()
+	public boolean moveLeft()
 	{
-		coordX -= 10;
+		if(0 < coordX - 10)
+		{
+			coordX -= 10;
+			return true;
+		}
+		return false;
 	}
 	
-	public void moveRight()
+	public boolean moveRight()
 	{
-		coordX += 10;
+		if(Game.WIDTH - size > coordX + 10)
+		{
+			coordX += 10;
+			return true;
+		}
+		return false;
 	}
 }
