@@ -51,9 +51,14 @@ public class Game extends ApplicationAdapter
 	@Override
 	public void render()
 	{
+		stateTime++;
+		
 		if (gameOver)
+		{
+			drawGameOver();
 			return;
-
+		}
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -71,7 +76,6 @@ public class Game extends ApplicationAdapter
 		removeOutTaches();
 		checkCollisions();
 
-		stateTime++;
 		if (stateTime % (50 / difficulty) == 0 && difficulty <= 10)
 			difficulty += 0.1;
 	}
@@ -98,20 +102,17 @@ public class Game extends ApplicationAdapter
 	private void gameOver()
 	{
 		if (gameOver)
-		{
-			drawGameOver();
 			return;
-		}
-		int nbFrames = 1;
+		int nbFrames = 2;
 		Sprite[] moustacheFrames = new Sprite[nbFrames];
-		int width = 400;
-		int height = 200;
+		int width = 128;
+		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
 			moustacheFrames[i] = new Sprite(
 					new Texture("assets/game_over.png"), i * width, 0, width,
 					height);
 		moustache = new Moustache(2.0F, moustacheFrames);
-		moustache.setPlayMode(PlayMode.LOOP);
+		moustache.setPlayMode(PlayMode.LOOP_RANDOM);
 		gameOver = true;
 
 	}
@@ -122,7 +123,7 @@ public class Game extends ApplicationAdapter
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime), moustache.getCoordX(), 0);
+		batch.draw(moustache.getKeyFrame(stateTime), (WIDTH-128)/2, (HEIGHT-64)/2);
 		batch.end();
 	}
 
