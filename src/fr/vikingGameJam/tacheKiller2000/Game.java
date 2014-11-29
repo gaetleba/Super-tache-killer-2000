@@ -31,7 +31,6 @@ public class Game extends ApplicationAdapter
 				moustacheFrames[i] = new Sprite(moustacheTexture, i * width/nbFrames, 0,
 						width/nbFrames, height);
 			moustache = new Moustache(0.2F, moustacheFrames);
-			moustache.setPlayMode(Animation.PlayMode.LOOP);
 		}
 	}
 

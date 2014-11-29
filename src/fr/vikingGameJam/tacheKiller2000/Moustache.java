@@ -11,6 +11,7 @@ public class Moustache extends Animation
 	{
 		super(frameDuration, keyFrames);
 		coordY = 0;
+		setPlayMode(Animation.PlayMode.LOOP);
 	}
 
 	public int getCoordY() {
@@ -21,6 +22,16 @@ public class Moustache extends Animation
 	{
 		if(-1024*0.1F <= coordY && coordY < Gdx.graphics.getWidth() + 1024*0.1F)
 			this.coordY = coordY;
+	}
+	
+	public void moveLeft()
+	{
+		setCoordY(getCoordY() - 10);
+	}
+	
+	public void moveRight()
+	{
+		setCoordY(getCoordY() - 10);
 	}
 
 }
