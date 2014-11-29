@@ -14,7 +14,7 @@ public class Game extends ApplicationAdapter
 	SpriteBatch batch;
 	Texture moustacheTexture;
 	private float stateTime;
-	private float posX;
+	private Moustache moustache;
 
 	@Override
 	public void create()
@@ -22,7 +22,6 @@ public class Game extends ApplicationAdapter
 		batch = new SpriteBatch();
 		moustacheTexture = new Texture("assets/moustache.png");
 		stateTime = 0;
-		posX = 0;
 
 		{
 			Sprite[] moustacheFrames = new Sprite[6];
@@ -32,12 +31,10 @@ public class Game extends ApplicationAdapter
 			for (int i = 0; i < nbFrames; i++)
 				moustacheFrames[i] = new Sprite(moustacheTexture, i * width
 						/ nbFrames, 0, width / nbFrames, height);
-			moustache = new Animation(0.2F, moustacheFrames);
+			moustache = new Moustache(0.2F, moustacheFrames);
 			moustache.setPlayMode(Animation.PlayMode.LOOP_RANDOM);
 		}
 	}
-
-	private Animation moustache;
 
 	@Override
 	public void render()
@@ -46,13 +43,14 @@ public class Game extends ApplicationAdapter
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-			posX -= 10;
+			moustache.moveLeft();
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			posX += 10;
+			moustache.moveRight();
 		
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime / 10), posX, 64);
+		batch.draw(moustache.getKeyFrame(stateTime/10), moustache.getCoordY(), 64);
 		batch.end();
-		stateTime++;
+		
+		stateTime ++;
 	}
 }
