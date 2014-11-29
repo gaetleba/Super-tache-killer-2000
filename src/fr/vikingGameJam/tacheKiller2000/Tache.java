@@ -58,7 +58,7 @@ public class Tache extends Animation
 	 */
 	public void move()
 	{
-		coordY -= 10;
+		coordY -= 2 * Game.getDifficulty();;
 		
 		switch (iaNumber)
 		{
@@ -91,11 +91,11 @@ public class Tache extends Animation
 	
 	public void moveLeft()
 	{
-		coordX -= 10;
+		coordX -= 2 * Game.getDifficulty();
 	}
 	
 	public void moveRight()
 	{
-		coordX += 10;
+		coordX += 2 * Game.getDifficulty();
 	}
 }

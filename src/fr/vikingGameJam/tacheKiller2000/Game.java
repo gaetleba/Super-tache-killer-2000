@@ -15,6 +15,8 @@ public class Game extends ApplicationAdapter
 {
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 860;
+	
+	private static int difficulty;
 
 	SpriteBatch batch;
 	Texture moustacheTexture;
@@ -29,6 +31,7 @@ public class Game extends ApplicationAdapter
 		moustacheTexture = new Texture("assets/moustache.png");
 		stateTime = 0;
 		taches = new LinkedList<Tache>();
+		difficulty = 1;
 
 		{// Creation moustache
 			int nbFrames = 16;
@@ -57,10 +60,10 @@ public class Game extends ApplicationAdapter
 			tache.move();
 
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime / 10),
+		batch.draw(moustache.getKeyFrame(stateTime / 8),
 				moustache.getCoordY(), 0);
 		for (Tache tache : taches)
-			batch.draw(tache.getKeyFrame(stateTime / 20), tache.getCoordX(),
+			batch.draw(tache.getKeyFrame(stateTime / 200), tache.getCoordX(),
 					tache.getCoordY());
 		if (stateTime % 10 == 0)
 			taches.add(createTache());
@@ -80,5 +83,10 @@ public class Game extends ApplicationAdapter
 					* width, 0, width, height);
 		Tache tache = new Tache(0.2F, tacheFrames, moustache);
 		return tache;
+	}
+
+	public static int getDifficulty()
+	{
+		return difficulty;
 	}
 }
