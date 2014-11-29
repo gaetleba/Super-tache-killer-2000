@@ -20,8 +20,12 @@ public class Moustache extends Animation
 
 	public void setCoordY(int coordY)
 	{
-		if(-1024*0.1F <= coordY && coordY < Gdx.graphics.getWidth() + 1024*0.1F)
+		if(-1024*0.1F <= coordY && coordY < Gdx.graphics.getWidth() - 1024*0.1F)
+		{
 			this.coordY = coordY;
+			System.out.println(Gdx.graphics.getWidth());
+			System.out.println(coordY);
+		}
 	}
 	
 	public void moveLeft()
