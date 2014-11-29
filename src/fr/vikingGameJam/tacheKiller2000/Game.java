@@ -61,25 +61,27 @@ public class Game extends ApplicationAdapter
 
 		batch.begin();
 		batch.draw(moustache.getKeyFrame(stateTime / 8),
-				moustache.getCoordY(), 0);
+				moustache.getCoordX(), 0);
 		for (Tache tache : taches)
-			batch.draw(tache.getKeyFrame(stateTime / 200), tache.getCoordX(),
+			batch.draw(tache.getKeyFrame(stateTime / 10), tache.getCoordX(),
 					tache.getCoordY());
-		if (stateTime % 10 == 0)
+		if (stateTime % 100 == 0)
 			taches.add(createTache());
 		batch.end();
 
 		stateTime++;
+		if (stateTime %500 == 0 && difficulty <= 10)
+			difficulty ++;
 	}
 
 	private Tache createTache()
 	{
-		int nbFrames = 1;
+		int nbFrames = 4;
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = 64;
 		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/tache_0.png"), i
+			tacheFrames[i] = new Sprite(new Texture("assets/tache_4.png"), i
 					* width, 0, width, height);
 		Tache tache = new Tache(0.2F, tacheFrames, moustache);
 		return tache;

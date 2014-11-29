@@ -5,34 +5,34 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Moustache extends Animation
 {
-	private int coordY;
+	private int coordX;
 	private final int WIDTH = 174;
 	
 	public Moustache(float frameDuration, TextureRegion[] keyFrames)
 	{
 		super(frameDuration, keyFrames);
-		coordY = 0;
+		coordX = 0;
 		setPlayMode(Animation.PlayMode.LOOP_RANDOM);
 	}
 
-	public int getCoordY() {
-		return coordY;
+	public int getCoordX() {
+		return coordX;
 	}
 
-	public void setCoordY(int coordY)
+	public void setCoordX(int coordY)
 	{
 		if(-WIDTH/2 <= coordY && coordY < Game.WIDTH - WIDTH/2)
-			this.coordY = coordY;
+			this.coordX = coordY;
 	}
 	
 	public void moveLeft()
 	{
-		setCoordY(getCoordY() - 10);
+		setCoordX(coordX - 10 * Game.getDifficulty());
 	}
 	
 	public void moveRight()
 	{
-		setCoordY(getCoordY() + 10);
+		setCoordX(coordX + 10 * Game.getDifficulty());
 	}
 
 }
