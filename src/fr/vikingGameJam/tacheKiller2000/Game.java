@@ -13,6 +13,7 @@ public class Game extends ApplicationAdapter
 	SpriteBatch batch;
 	Texture moustacheTexture;
 	private float stateTime;
+	private Moustache moustache;
 
 	@Override
 	public void create()
@@ -29,21 +30,22 @@ public class Game extends ApplicationAdapter
 			for (int i = 0; i < nbFrames; i++)
 				moustacheFrames[i] = new Sprite(moustacheTexture, i * width/nbFrames, 0,
 						width/nbFrames, height);
-			moustache = new Animation(0.2F, moustacheFrames);
+			moustache = new Moustache(0.2F, moustacheFrames);
 			moustache.setPlayMode(Animation.PlayMode.LOOP);
 		}
 	}
 
-	private Animation moustache;
 
 	@Override
 	public void render()
 	{
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime/100), 0, 64);
+		batch.draw(moustache.getKeyFrame(stateTime/100), moustache.getCoordY(), 64);
 		batch.end();
+		
 		stateTime ++;
 	}
 }
