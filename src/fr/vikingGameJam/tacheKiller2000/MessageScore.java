@@ -62,7 +62,7 @@ public class MessageScore
 			font.setColor((int)(Math.random() * 255),
 					(int)(Math.random() * 255),
 					(int)(Math.random() * 255), 255);
-			font.drawWrapped(batch, this.message.get(messageActuel) , 10, Game.HEIGHT / 2, Game.WIDTH - 20 ); 
+			font.drawWrapped(batch, this.message.get(messageActuel) , 20, Game.HEIGHT / 2, Game.WIDTH - 40 ); 
 			
 			if(++count == 150)
 			{
