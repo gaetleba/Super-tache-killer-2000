@@ -10,7 +10,7 @@ public class Tache extends Animation
 	private int coordX;
 	private int coordY;
 
-	private int size = 64;
+	public static int SIZE = 64;
 
 	private int valueForMove;
 	private int valueForMoveActual;
@@ -47,7 +47,7 @@ public class Tache extends Animation
 		}
 
 		setPlayMode(Animation.PlayMode.LOOP);
-		coordY = Game.HEIGHT - size;
+		coordY = Game.HEIGHT - SIZE;
 		coordX = (int)(Math.random() * Game.WIDTH);
 		valueForMove = (int)(Math.random() * 15) + 20;
 		valueForMoveActual = 0;
@@ -106,7 +106,7 @@ public class Tache extends Animation
 			break;
 
 		case 2:
-			if (moustache.getCoordX() < getCoordX())
+			if ((moustache.getCoordX() + Moustache.WIDTH / 4) < getCoordX())
 				moveLeft();
 			else
 				moveRight();
@@ -138,7 +138,7 @@ public class Tache extends Animation
 
 	public boolean moveRight()
 	{
-		if (Game.WIDTH - size > coordX + 10)
+		if (Game.WIDTH - SIZE > coordX + 10)
 		{
 			coordX += 2 * Game.getDifficulty();
 			return true;
@@ -148,11 +148,11 @@ public class Tache extends Animation
 
 	public boolean isOut()
 	{
-		return coordY < -size;
+		return coordY < -SIZE;
 	}
 
 	public int getRightCorner()
 	{
-		return coordX + size;
+		return coordX + SIZE;
 	}
 }
