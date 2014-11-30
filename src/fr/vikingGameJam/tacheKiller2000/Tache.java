@@ -23,7 +23,7 @@ public class Tache extends Animation implements Outable
 
 	public static Tache getTache(Moustache moustache)
 	{
-		int iaNumber = (int) (Math.random() * 3);
+		int iaNumber = (int) (Math.random() * 4);
 		int nbFrames = 4;
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = 64;
@@ -111,6 +111,16 @@ public class Tache extends Animation implements Outable
 			else
 				moveRight();
 			break;
+
+		case 3:
+			if (++valueForMoveActual == 100)
+			{
+				valueForMoveActual = 0;
+				if(coordY > 100)
+					coordY -= -10 + (int)(Math.random() * 20);
+				
+				coordX = (int)(Math.random() * (Game.WIDTH - SIZE));
+			}
 
 		default:
 			if ((int) (Math.random() * 2) == 0)
