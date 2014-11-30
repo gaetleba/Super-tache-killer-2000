@@ -112,8 +112,7 @@ public class Tache extends Animation implements Outable
 			break;
 
 		case 3: //vert  TP
-			valueForMoveActual += Game.getDifficulty();
-			if (valueForMoveActual == 100)
+			if (++valueForMoveActual == 100)
 			{
 				valueForMoveActual = 0;
 				if (coordY > 128)
