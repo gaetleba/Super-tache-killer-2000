@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Game extends ApplicationAdapter
 {
 	public static final int WIDTH = 800;
-	public static final int HEIGHT = 860;
+	public static final int HEIGHT = 760;
 	private final int LEVEL_MAX = 15;
 
 	private static float difficulty;
@@ -86,7 +86,7 @@ public class Game extends ApplicationAdapter
 			taches.add(Tache.getTache(moustache));
 
 		score.draw(batch);
-		
+
 		if (levelUp != null)
 			try
 			{
@@ -129,8 +129,8 @@ public class Game extends ApplicationAdapter
 		{
 			if (tache.getCoordY() < moustache.getHeight() - 10
 					&& tache.getCoordY() > 20
-					&& tache.getCoordX() < moustache.getRightCorner()-8
-					&& tache.getRightCorner() > moustache.getCoordX()+8)
+					&& tache.getCoordX() < moustache.getRightCorner() - 8
+					&& tache.getRightCorner() > moustache.getCoordX() + 8)
 				gameOver();
 
 			for (Missile missile : missiles)
@@ -182,6 +182,12 @@ public class Game extends ApplicationAdapter
 		batch.draw(gameOver.getKeyFrame(stateTime),
 				(WIDTH - GameOverAnimation.WIDTH) / 2,
 				(HEIGHT - GameOverAnimation.HEIGHT) / 2);
+		int insulte = (int) ((score.getValue()+99) / 100);
+		if (insulte < 0)
+			insulte = 0;
+		batch.draw(Messages.getInstance().getKeyFrame(insulte),
+				(WIDTH - Messages.WIDTH) / 2,
+				(HEIGHT - GameOverAnimation.HEIGHT) / 3);
 		batch.end();
 	}
 
