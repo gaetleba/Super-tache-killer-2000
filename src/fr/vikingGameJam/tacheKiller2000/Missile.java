@@ -61,6 +61,6 @@ public class Missile extends Animation implements Outable
 
 	public boolean isOut()
 	{
-		return coordY < - SIZE;
+		return coordY > Game.HEIGHT;
 	}
 }

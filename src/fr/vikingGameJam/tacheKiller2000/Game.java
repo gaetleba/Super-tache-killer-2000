@@ -24,6 +24,8 @@ public class Game extends ApplicationAdapter
 	private long lastMissile;
 	private GameOverAnimation gameOver = null;
 
+	private long score;
+	
 	@Override
 	public void create()
 	{
@@ -35,6 +37,8 @@ public class Game extends ApplicationAdapter
 		lastMissile = System.currentTimeMillis();
 
 		moustache = Moustache.getMoustache();
+		
+		score = 0;
 	}
 
 	@Override
@@ -64,21 +68,24 @@ public class Game extends ApplicationAdapter
 			taches.add(Tache.getTache(moustache));
 		batch.end();
 
-		removeOut(taches);
-		removeOut(missiles);
+		score -= 20 * removeOut(taches);
+		score -= 15 * removeOut(missiles);
 		checkCollisions();
 
 		if (stateTime % (50 / difficulty) == 0 && difficulty <= 10)
 			difficulty += 0.1;
+		
+		System.out.println(score);
 	}
 
-	private void removeOut(LinkedList<? extends Outable> list)
+	private int removeOut(LinkedList<? extends Outable> list)
 	{
 		LinkedList<Outable> toRemove = new LinkedList<Outable>();
 		for (Outable outable : list)
 			if (outable.isOut())
 				toRemove.add(outable);
 		list.removeAll(toRemove);
+		return toRemove.size();
 	}
 
 	private void checkCollisions()
@@ -103,13 +110,13 @@ public class Game extends ApplicationAdapter
 				{
 					toRemoveMissile.add(missile);
 					toRemoveTache.add(tache);
+					score += 10;
 				}
 			}
 		}
 		
 		taches.removeAll(toRemoveTache);
 		missiles.removeAll(toRemoveMissile);
-		Gdx.gl.glClearColor(1, 1, 1, 1);
 	}
 
 	private void gameOver()
