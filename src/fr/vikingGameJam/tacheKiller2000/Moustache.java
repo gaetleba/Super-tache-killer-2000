@@ -71,4 +71,9 @@ public class Moustache extends Animation
 	{
 		return WIDTH;
 	}
+
+	public int getCenterX()
+	{
+		return coordX + WIDTH/2;
+	}
 }

@@ -16,12 +16,12 @@ public class Missile extends Animation
 	
 	public static Missile getMissile(Moustache moustache)
 	{
-		int nbFrames = 4;
+		int nbFrames = 1;
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = 64;
 		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/tache_4.png"), i
+			tacheFrames[i] = new Sprite(new Texture("assets/mousse.png"), i
 					* width, 0, width, height);
 		return new Missile(moustache.getCoordX(), tacheFrames);
 	}
