@@ -6,7 +6,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends ApplicationAdapter
@@ -27,6 +28,8 @@ public class Game extends ApplicationAdapter
 
 	private Score score;
 	
+	private static Sprite backgroundSprite;
+	
 	@Override
 	public void create()
 	{
@@ -40,6 +43,9 @@ public class Game extends ApplicationAdapter
 		moustache = Moustache.getMoustache();
 		
 		score = new Score();
+		
+		backgroundSprite = new Sprite(new Texture("assets/background.png"), 0,
+				0, 800, 800);
 	}
 
 	@Override
@@ -59,6 +65,10 @@ public class Game extends ApplicationAdapter
 		play();
 
 		batch.begin();
+		float backgroundSpeed = (10*stateTime*difficulty)%800;
+		batch.draw(backgroundSprite,0,-backgroundSpeed);
+		batch.draw(backgroundSprite,0,800-backgroundSpeed);
+		batch.draw(backgroundSprite,0,1600-backgroundSpeed);
 		for(Missile missile : missiles)
 			batch.draw(missile.getKeyFrame(), missile.getCoordX(), missile.getCoordY());
 		batch.draw(moustache.getKeyFrame(stateTime), moustache.getCoordX(), 0);
