@@ -6,6 +6,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends ApplicationAdapter
@@ -66,6 +67,9 @@ public class Game extends ApplicationAdapter
 					tache.getCoordY());
 		if (stateTime % 100 == 0)
 			taches.add(Tache.getTache(moustache));
+		
+		new BitmapFont().draw(batch, "Score : " + score, 10, 30);   
+		
 		batch.end();
 
 		removeOutTaches();
@@ -81,7 +85,10 @@ public class Game extends ApplicationAdapter
 		LinkedList<Tache> toRemove = new LinkedList<Tache>();
 		for (Tache tache : taches)
 			if (tache.isOut())
+			{
 				toRemove.add(tache);
+				score -= 15;
+			}
 		taches.removeAll(toRemove);
 	}
 
