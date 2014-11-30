@@ -10,12 +10,13 @@ public class Messages extends Animation
 	private static Messages instance = null;
 	public static final int WIDTH = 256;
 	public static final int HEIGHT = 64;
+	private static final int nbFrames = 15;
 
 	public static Messages getInstance()
 	{
 		if (instance == null)
 		{
-			int nbFrames = 15;
+			
 			Sprite[] frames = new Sprite[nbFrames];
 			for (int i = 0; i < nbFrames; i++)
 				frames[i] = new Sprite(
