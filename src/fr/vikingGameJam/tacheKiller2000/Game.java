@@ -58,6 +58,10 @@ public class Game extends ApplicationAdapter
 		if (gameOver != null)
 		{
 			drawGameOver();
+			if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
+			{
+				restartGame();
+			}
 			return;
 		}
 
@@ -156,6 +160,17 @@ public class Game extends ApplicationAdapter
 			return;
 		gameOver = GameOverAnimation.getInstance();
 
+	}
+	
+	private void restartGame()
+	{
+		gameOver = null;
+		stateTime = 0;
+		taches = new LinkedList<Tache>();
+		missiles = new LinkedList<Missile>();
+		difficulty = 1;
+		lastMissile = System.currentTimeMillis();
+		score = new Score();
 	}
 
 	private void drawGameOver()
