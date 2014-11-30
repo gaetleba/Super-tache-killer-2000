@@ -19,7 +19,6 @@ public class Game extends ApplicationAdapter
 	private static float difficulty;
 
 	SpriteBatch batch;
-	Texture moustacheTexture;
 	private float stateTime;
 	private Moustache moustache;
 	private LinkedList<Tache> taches;
@@ -29,23 +28,12 @@ public class Game extends ApplicationAdapter
 	public void create()
 	{
 		batch = new SpriteBatch();
-		moustacheTexture = new Texture("assets/moustache.png");
 		stateTime = 0;
 		taches = new LinkedList<Tache>();
 		difficulty = 1;
 		gameOver = false;
 
-		{// Creation moustache
-			int nbFrames = 16;
-			Sprite[] moustacheFrames = new Sprite[nbFrames];
-			int width = 128;
-			int height = 64;
-			for (int i = 0; i < nbFrames; i++)
-				moustacheFrames[i] = new Sprite(moustacheTexture, i * width, 0,
-						width, height);
-			moustache = new Moustache(2.0F, moustacheFrames);
-			moustache.setPlayMode(PlayMode.LOOP);
-		}
+		moustache = Moustache.getMoustache();
 	}
 
 	@Override
