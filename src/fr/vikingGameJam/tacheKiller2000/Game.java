@@ -29,7 +29,6 @@ public class Game extends ApplicationAdapter
 	private LevelUpAnimation levelUp = null;
 
 	private Score score;
-	private MessageScore message;
 
 	private static Sprite backgroundSprite;
 
@@ -44,9 +43,6 @@ public class Game extends ApplicationAdapter
 		lastMissile = System.currentTimeMillis();
 
 		moustache = Moustache.getMoustache();
-
-		message = new MessageScore(this);
-		score = new Score(message);
 
 		backgroundSprite = new Sprite(new Texture("assets/background.png"), 0,
 				0, 800, 800);
@@ -84,7 +80,6 @@ public class Game extends ApplicationAdapter
 			taches.add(Tache.getTache(moustache));
 
 		score.draw(batch);
-		message.draw(batch);
 		
 		if (levelUp != null)
 			try

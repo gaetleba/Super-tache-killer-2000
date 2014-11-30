@@ -15,10 +15,9 @@ public class Score extends BitmapFont
 	private boolean goToRigth = true;
 	private boolean goToDown = true;
 	private boolean goToSize = true;
-	private MessageScore message;
 	
 	
-	public Score(MessageScore message)
+	public Score()
 	{
 		super();
 		setColor((int)(Math.random() * 255),
@@ -29,7 +28,6 @@ public class Score extends BitmapFont
 		scoreCouleur[0] = false;
 		scoreCouleur[1] = true;
 		scoreCouleur[2] = false;
-		this.message = message;
 	}
 	
 	public void add(int val)
@@ -101,7 +99,6 @@ public class Score extends BitmapFont
 				goToRigth = true;
 		}
 		
-		message.setMessageActuel(score);
 		draw(batch, "Score : " + score, positionHorizontal , positionVertical); 
 	}
 }
