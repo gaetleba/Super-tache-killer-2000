@@ -44,6 +44,8 @@ public class Game extends ApplicationAdapter
 
 		moustache = Moustache.getMoustache();
 
+		score = new Score();
+
 		backgroundSprite = new Sprite(new Texture("assets/background.png"), 0,
 				0, 800, 800);
 	}
