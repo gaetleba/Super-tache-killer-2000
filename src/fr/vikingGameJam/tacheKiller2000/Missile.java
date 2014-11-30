@@ -1,18 +1,32 @@
 package fr.vikingGameJam.tacheKiller2000;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Missile extends Animation
 {
 	private int coordX;
 	private int coordY;
-	private static int SIZE = 64;
+	public static int SIZE = 64;
 	
 	private int compteurVitesse;
 	private int vitesse;
 	
-	public Missile(int coordX,TextureRegion[] keyFrames)
+	public static Missile getMissile(Moustache moustache)
+	{
+		int nbFrames = 4;
+		Sprite[] tacheFrames = new Sprite[nbFrames];
+		int width = 64;
+		int height = 64;
+		for (int i = 0; i < nbFrames; i++)
+			tacheFrames[i] = new Sprite(new Texture("assets/tache_4.png"), i
+					* width, 0, width, height);
+		return new Missile(moustache.getCoordX(), tacheFrames);
+	}
+	
+	private Missile(int coordX,TextureRegion[] keyFrames)
 	{
 		super(8.0F, keyFrames);
 		setPlayMode(PlayMode.NORMAL);
