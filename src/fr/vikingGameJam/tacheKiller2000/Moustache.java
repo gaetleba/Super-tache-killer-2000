@@ -32,7 +32,7 @@ public class Moustache extends Animation
 	private Moustache(float frameDuration, TextureRegion[] keyFrames)
 	{
 		super(frameDuration, keyFrames);
-		coordX = 0;
+		coordX = (Game.WIDTH-WIDTH)/2;
 		setPlayMode(Animation.PlayMode.LOOP_RANDOM);
 	}
 
