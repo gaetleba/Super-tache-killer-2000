@@ -9,45 +9,49 @@ public class Moustache extends Animation
 {
 	private int coordX;
 	private final int WIDTH = 128;
-	
+	private static Moustache instance;
+
 	public static Moustache getMoustache()
 	{
-		Texture moustacheTexture = new Texture("assets/moustache.png");
-		Moustache moustache;
-		int nbFrames = 16;
-		Sprite[] moustacheFrames = new Sprite[nbFrames];
-		int width = 128;
-		int height = 64;
-		for (int i = 0; i < nbFrames; i++)
-			moustacheFrames[i] = new Sprite(moustacheTexture, i * width, 0,
-					width, height);
-		moustache = new Moustache(2.0F, moustacheFrames);
-		moustache.setPlayMode(PlayMode.LOOP);
-		return moustache;
+		if (instance == null)
+		{
+			Texture moustacheTexture = new Texture("assets/moustache.png");
+			int nbFrames = 16;
+			Sprite[] moustacheFrames = new Sprite[nbFrames];
+			int width = 128;
+			int height = 64;
+			for (int i = 0; i < nbFrames; i++)
+				moustacheFrames[i] = new Sprite(moustacheTexture, i * width, 0,
+						width, height);
+			instance = new Moustache(2.0F, moustacheFrames);
+			instance.setPlayMode(PlayMode.LOOP);
+		}
+		return instance;
 	}
-	
-	public Moustache(float frameDuration, TextureRegion[] keyFrames)
+
+	private Moustache(float frameDuration, TextureRegion[] keyFrames)
 	{
 		super(frameDuration, keyFrames);
 		coordX = 0;
 		setPlayMode(Animation.PlayMode.LOOP_RANDOM);
 	}
 
-	public int getCoordX() {
+	public int getCoordX()
+	{
 		return coordX;
 	}
 
 	public void setCoordX(int coordX)
 	{
-		if(-WIDTH/2 <= coordX && coordX < Game.WIDTH - WIDTH/2)
+		if (-WIDTH / 2 <= coordX && coordX < Game.WIDTH - WIDTH / 2)
 			this.coordX = coordX;
 	}
-	
+
 	public void moveLeft()
 	{
 		setCoordX(coordX - 15);
 	}
-	
+
 	public void moveRight()
 	{
 		setCoordX(coordX + 15);

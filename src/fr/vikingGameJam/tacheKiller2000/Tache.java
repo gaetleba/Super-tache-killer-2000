@@ -34,7 +34,7 @@ public class Tache extends Animation
 		return tache;
 	}
 
-	public Tache(float frameDuration, TextureRegion[] keyFrames,
+	private Tache(float frameDuration, TextureRegion[] keyFrames,
 			Moustache moustache)
 	{
 		super(frameDuration, keyFrames);

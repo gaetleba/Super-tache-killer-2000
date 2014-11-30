@@ -6,9 +6,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends ApplicationAdapter
@@ -22,7 +19,7 @@ public class Game extends ApplicationAdapter
 	private float stateTime;
 	private Moustache moustache;
 	private LinkedList<Tache> taches;
-	private boolean gameOver;
+	private GameOverAnimation gameOver = null;
 
 	@Override
 	public void create()
@@ -31,7 +28,6 @@ public class Game extends ApplicationAdapter
 		stateTime = 0;
 		taches = new LinkedList<Tache>();
 		difficulty = 1;
-		gameOver = false;
 
 		moustache = Moustache.getMoustache();
 	}
@@ -41,7 +37,7 @@ public class Game extends ApplicationAdapter
 	{
 		stateTime++;
 		
-		if (gameOver)
+		if (gameOver != null)
 		{
 			drawGameOver();
 			return;
@@ -89,19 +85,9 @@ public class Game extends ApplicationAdapter
 
 	private void gameOver()
 	{
-		if (gameOver)
+		if (gameOver != null)
 			return;
-		int nbFrames = 2;
-		Sprite[] moustacheFrames = new Sprite[nbFrames];
-		int width = 128;
-		int height = 64;
-		for (int i = 0; i < nbFrames; i++)
-			moustacheFrames[i] = new Sprite(
-					new Texture("assets/game_over.png"), i * width, 0, width,
-					height);
-		moustache = new Moustache(2.0F, moustacheFrames);
-		moustache.setPlayMode(PlayMode.LOOP_RANDOM);
-		gameOver = true;
+		gameOver = GameOverAnimation.getInstance();
 
 	}
 
@@ -111,7 +97,7 @@ public class Game extends ApplicationAdapter
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime), (WIDTH-128)/2, (HEIGHT-64)/2);
+		batch.draw(gameOver.getKeyFrame(stateTime), (WIDTH-GameOverAnimation.WIDTH)/2, (HEIGHT-GameOverAnimation.HEIGHT)/2);
 		batch.end();
 	}
 
