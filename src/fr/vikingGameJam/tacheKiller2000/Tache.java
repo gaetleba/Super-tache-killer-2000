@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Tache extends Animation
+public class Tache extends Animation implements Outable
 {
 	private int coordX;
 	private int coordY;

@@ -64,30 +64,21 @@ public class Game extends ApplicationAdapter
 			taches.add(Tache.getTache(moustache));
 		batch.end();
 
-		removeOutTaches();
-		removeOutMissiles();
+		removeOut(taches);
+		removeOut(missiles);
 		checkCollisions();
 
 		if (stateTime % (50 / difficulty) == 0 && difficulty <= 10)
 			difficulty += 0.1;
 	}
 
-	private void removeOutTaches()
+	private void removeOut(LinkedList<? extends Outable> list)
 	{
-		LinkedList<Tache> toRemove = new LinkedList<Tache>();
-		for (Tache tache : taches)
-			if (tache.isOut())
-				toRemove.add(tache);
-		taches.removeAll(toRemove);
-	}
-
-	private void removeOutMissiles()
-	{
-		LinkedList<Missile> toRemove = new LinkedList<Missile>();
-		for (Missile missile : missiles)
-			if (missile.isOut())
-				toRemove.add(missile);
-		missiles.removeAll(toRemove);
+		LinkedList<Outable> toRemove = new LinkedList<Outable>();
+		for (Outable outable : list)
+			if (outable.isOut())
+				toRemove.add(outable);
+		list.removeAll(toRemove);
 	}
 
 	private void checkCollisions()
