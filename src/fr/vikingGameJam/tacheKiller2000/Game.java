@@ -14,6 +14,7 @@ public class Game extends ApplicationAdapter
 {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 860;
+	private final int LEVEL_MAX = 15;
 
 	private static float difficulty;
 
@@ -102,7 +103,7 @@ public class Game extends ApplicationAdapter
 		score.sub(15 * removeOut(missiles));
 		checkCollisions();
 
-		if (score.getValue() >= difficulty * 100 && difficulty < 10)
+		if (score.getValue() >= difficulty * 100 && difficulty < LEVEL_MAX)
 		{
 			difficulty += 1;
 			levelUp = LevelUpAnimation.getLevelUp();
