@@ -180,7 +180,7 @@ public class Game extends ApplicationAdapter
 
 		for (TacheDeathAnimation deadTache : deathAnimations)
 		{
-			if(deadTache.getStateTime() > 50)
+			if(deadTache.getStateTime() > 16)
 				toRemoveDeadTache.add(deadTache);
 		}
 		for (Tache deadTache : toRemoveTache)
