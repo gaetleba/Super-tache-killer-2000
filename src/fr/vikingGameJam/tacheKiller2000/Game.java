@@ -60,12 +60,12 @@ public class Game extends ApplicationAdapter
 
 		batch.begin();
 		for(Missile missile : missiles)
-			batch.draw(missile.getKeyFrame(stateTime), missile.getCoordX(), missile.getCoordY());
+			batch.draw(missile.getKeyFrame(), missile.getCoordX(), missile.getCoordY());
 		batch.draw(moustache.getKeyFrame(stateTime), moustache.getCoordX(), 0);
 		for (Tache tache : taches)
 			batch.draw(tache.getKeyFrame(stateTime), tache.getCoordX(),
 					tache.getCoordY());
-		if (stateTime % 100 == 0)
+		if (stateTime % 100/difficulty == 0)
 			taches.add(Tache.getTache(moustache));
 		
 		new BitmapFont().draw(batch, "Score : " + score, 10, 30);   
@@ -76,10 +76,8 @@ public class Game extends ApplicationAdapter
 		score -= 15 * removeOut(missiles);
 		checkCollisions();
 
-		if (stateTime % (50 / difficulty) == 0 && difficulty <= 10)
-			difficulty += 0.1;
-		
-		System.out.println(score);
+		if (stateTime % (10 / difficulty) == 0 && difficulty <= 10)
+			difficulty += 0.5;
 	}
 
 	private int removeOut(LinkedList<? extends Outable> list)

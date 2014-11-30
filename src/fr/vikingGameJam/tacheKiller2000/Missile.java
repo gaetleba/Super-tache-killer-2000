@@ -13,10 +13,11 @@ public class Missile extends Animation implements Outable
 	
 	private int compteurVitesse;
 	private int vitesse;
+	private int stateTime;
 	
 	public static Missile getMissile(Moustache moustache)
 	{
-		int nbFrames = 1;
+		int nbFrames = 3;
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = 64;
 		int height = 64;
@@ -26,9 +27,16 @@ public class Missile extends Animation implements Outable
 		return new Missile(moustache.getCoordX(), tacheFrames);
 	}
 	
-	private Missile(int coordX,TextureRegion[] keyFrames)
+	public TextureRegion getKeyFrame()
 	{
-		super(8.0F, keyFrames);
+		stateTime ++;
+		return super.getKeyFrame(stateTime);
+	}
+	
+	private Missile(int coordX, TextureRegion[] keyFrames)
+	{
+		super(15.0F, keyFrames);
+		stateTime = 0;
 		setPlayMode(PlayMode.NORMAL);
 		this.coordY = 32;
 		this.coordX = coordX + 32;
