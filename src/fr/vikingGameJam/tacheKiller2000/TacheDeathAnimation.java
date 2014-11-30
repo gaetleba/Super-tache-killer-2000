@@ -34,10 +34,27 @@ public class TacheDeathAnimation extends Animation
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = SIZE;
 		int height = SIZE;
+		Texture texture ;
+		switch(iaNumber){
+		case 1:
+			texture = new Texture("assets/tache-mort-bleu.png");
+			break;
+		case 2:
+			texture = new Texture("assets/tache-mort-rouge.png");
+			break;
+		case 3:
+			texture = new Texture("assets/tache-mort-vert.png");
+			break;
+		default :
+			texture = new Texture("assets/tache-mort-marron.png");	
+			break;
+		}
 		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/tache-mort.png"), i
+		{
+			tacheFrames[i] = new Sprite(texture, i
 					* width, 0, width, height);
-		return new TacheDeathAnimation(tacheFrames, iaNumber, x, y);
+		}
+		return new TacheDeathAnimation(tacheFrames, iaNumber, x-32, y-32);
 		
 		
 	}
