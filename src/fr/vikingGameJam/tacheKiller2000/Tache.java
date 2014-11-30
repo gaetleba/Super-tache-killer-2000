@@ -106,7 +106,7 @@ public class Tache extends Animation
 			break;
 
 		case 2:
-			if (moustache.getCoordX() < getCoordX())
+			if (moustache.getCenterX() < getCenterX())
 				moveLeft();
 			else
 				moveRight();
@@ -124,6 +124,11 @@ public class Tache extends Animation
 			break;
 		}
 
+	}
+
+	public int getCenterX()
+	{
+		return coordX + size/2;
 	}
 
 	public boolean moveLeft()
