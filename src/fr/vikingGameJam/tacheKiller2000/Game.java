@@ -143,12 +143,12 @@ public class Game extends ApplicationAdapter
 
 	private void createMissile()
 	{
-		int nbFrames = 4;
+		int nbFrames = 1;
 		Sprite[] missileFrames = new Sprite[nbFrames];
 		int width = 64;
 		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
-			missileFrames[i] = new Sprite(new Texture("assets/tache_4.png"), i
+			missileFrames[i] = new Sprite(new Texture("assets/mousse.png"), i
 					* width, 0, width, height);
 		missiles.add(new Missile(moustache.getCoordX(), missileFrames));
 	}
