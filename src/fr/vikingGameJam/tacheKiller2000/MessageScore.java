@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MessageScore
 {
-	private Game game;
 	private HashMap<Integer, String> message;
 	private int messageActuel;
 	private int count;
@@ -20,7 +19,6 @@ public class MessageScore
 		font = new BitmapFont();
 		font.scale(5.0F);
 		messageActuel = 0;
-		this.game = game;
 		this.message = new HashMap<Integer, String>();
 
 		this.message.put(3000, "Félicitations !");

@@ -23,7 +23,7 @@ public class Tache extends Animation implements Outable
 
 	public static Tache getTache(Moustache moustache)
 	{
-		int iaNumber = (int) (Math.random() * 3);
+		int iaNumber = (int) (Math.random() * 4);
 		int nbFrames = 4;
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = 64;
