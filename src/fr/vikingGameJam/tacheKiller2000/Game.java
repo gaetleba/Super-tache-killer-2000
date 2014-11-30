@@ -2,6 +2,8 @@ package fr.vikingGameJam.tacheKiller2000;
 
 import java.util.LinkedList;
 
+import org.lwjgl.Sys;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -23,7 +25,10 @@ public class Game extends ApplicationAdapter
 	private float stateTime;
 	private Moustache moustache;
 	private LinkedList<Tache> taches;
+	private LinkedList<Missile> missiles;
 	private boolean gameOver;
+	
+	private long lastMissile;
 
 	@Override
 	public void create()
@@ -32,8 +37,10 @@ public class Game extends ApplicationAdapter
 		moustacheTexture = new Texture("assets/moustache.png");
 		stateTime = 0;
 		taches = new LinkedList<Tache>();
+		missiles = new LinkedList<>();
 		difficulty = 1;
 		gameOver = false;
+		lastMissile = System.currentTimeMillis();
 
 		{// Creation moustache
 			int nbFrames = 16;
@@ -60,6 +67,8 @@ public class Game extends ApplicationAdapter
 		play();
 
 		batch.begin();
+		for(Missile missile : missiles)
+			batch.draw(missile.getKeyFrame(stateTime), missile.getCoordX(), missile.getCoordY());
 		batch.draw(moustache.getKeyFrame(stateTime), moustache.getCoordX(), 0);
 		for (Tache tache : taches)
 			batch.draw(tache.getKeyFrame(stateTime), tache.getCoordX(),
@@ -69,6 +78,7 @@ public class Game extends ApplicationAdapter
 		batch.end();
 
 		removeOutTaches();
+		removeOutMissiles();
 		checkCollisions();
 
 		stateTime++;
@@ -85,13 +95,25 @@ public class Game extends ApplicationAdapter
 		taches.removeAll(toRemove);
 	}
 
+	private void removeOutMissiles()
+	{
+		LinkedList<Missile> toRemove = new LinkedList<Missile>();
+		for (Missile missile : missiles)
+			if (missile.isOut())
+				toRemove.add(missile);
+		missiles.removeAll(toRemove);
+	}
+
 	private void checkCollisions()
 	{
+		LinkedList<Missile> toRemove = new LinkedList<>();
 		for (Tache tache : taches)
+		{
 			if (tache.getCoordY() < moustache.getHeight()
 					&& tache.getCoordX() < moustache.getRightCorner()
 					&& tache.getRightCorner() > moustache.getCoordX())
 				gameOver();
+		}
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 	}
 
@@ -132,8 +154,16 @@ public class Game extends ApplicationAdapter
 			moustache.moveLeft();
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 			moustache.moveRight();
+		if (Gdx.input.isKeyPressed(Input.Keys.SPACE) &&
+				lastMissile < System.currentTimeMillis())
+		{
+			createMissile();
+			lastMissile = System.currentTimeMillis() + 200;
+		}
 		for (Tache tache : taches)
 			tache.move();
+		for (Missile missile : missiles)
+			missile.move();
 	}
 
 	private Tache createTache()
@@ -147,6 +177,18 @@ public class Game extends ApplicationAdapter
 					* width, 0, width, height);
 		Tache tache = new Tache(8.0F, tacheFrames, moustache);
 		return tache;
+	}
+	
+	private void createMissile()
+	{
+		int nbFrames = 4;
+		Sprite[] missileFrames = new Sprite[nbFrames];
+		int width = 64;
+		int height = 64;
+		for (int i = 0; i < nbFrames; i++)
+			missileFrames[i] = new Sprite(new Texture("assets/tache_4.png"), i
+					* width, 0, width, height);
+		missiles.add(new Missile(moustache.getCoordX(), missileFrames));
 	}
 
 	public static float getDifficulty()

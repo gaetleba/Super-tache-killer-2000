@@ -33,7 +33,7 @@ public class Tache extends Animation
 		setPlayMode(Animation.PlayMode.LOOP);
 		coordY = Game.HEIGHT - size;
 		coordX = (int)(Math.random() * Game.WIDTH);
-		valueForMove = (int)(Math.random() * 10) + 10;
+		valueForMove = (int)(Math.random() * 15) + 20;
 		valueForMoveActual = 0;
 		this.moustache = moustache;
 		
