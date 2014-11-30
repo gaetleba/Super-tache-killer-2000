@@ -66,4 +66,9 @@ public class Moustache extends Animation
 	{
 		return coordX + WIDTH;
 	}
+
+	public int getWidth()
+	{
+		return WIDTH;
+	}
 }

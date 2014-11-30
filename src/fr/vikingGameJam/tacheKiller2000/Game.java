@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -94,14 +95,30 @@ public class Game extends ApplicationAdapter
 
 	private void checkCollisions()
 	{
-		LinkedList<Missile> toRemove = new LinkedList<Missile>();
+		LinkedList<Missile> toRemoveMissile = new LinkedList<Missile>();
+		LinkedList<Tache> toRemoveTache = new LinkedList<Tache>();
 		for (Tache tache : taches)
 		{
 			if (tache.getCoordY() < moustache.getHeight()
 					&& tache.getCoordX() < moustache.getRightCorner()
 					&& tache.getRightCorner() > moustache.getCoordX())
 				gameOver();
+			
+			for(Missile missile : missiles)
+			{
+				if(missile.getCoordX() < tache.getCoordX() &&
+					tache.getCoordX() < (missile.getCoordX() + Missile.SIZE) &&
+					missile.getCoordY() < tache.getCoordY() &&
+					tache.getCoordY() < missile.getCoordY() + Missile.SIZE)
+				{
+					toRemoveMissile.add(missile);
+					toRemoveTache.add(tache);
+				}
+			}
 		}
+		
+		taches.removeAll(toRemoveTache);
+		missiles.removeAll(toRemoveMissile);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 	}
 
@@ -150,7 +167,7 @@ public class Game extends ApplicationAdapter
 		for (int i = 0; i < nbFrames; i++)
 			missileFrames[i] = new Sprite(new Texture("assets/mousse.png"), i
 					* width, 0, width, height);
-		missiles.add(new Missile(moustache.getCoordX(), missileFrames));
+		missiles.add(Missile.getMissile(moustache));
 	}
 
 	public static float getDifficulty()
