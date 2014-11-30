@@ -122,9 +122,10 @@ public class Game extends ApplicationAdapter
 		LinkedList<Tache> toRemoveTache = new LinkedList<Tache>();
 		for (Tache tache : taches)
 		{
-			if (tache.getCoordY() < moustache.getHeight()
-					&& tache.getCoordX() < moustache.getRightCorner()
-					&& tache.getRightCorner() > moustache.getCoordX())
+			if (tache.getCoordY() < moustache.getHeight() - 10
+					&& tache.getCoordY() > 20
+					&& tache.getCoordX() < moustache.getRightCorner()-8
+					&& tache.getRightCorner() > moustache.getCoordX()+8)
 				gameOver();
 
 			for (Missile missile : missiles)
