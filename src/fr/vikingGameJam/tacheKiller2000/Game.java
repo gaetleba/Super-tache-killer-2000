@@ -24,6 +24,8 @@ public class Game extends ApplicationAdapter
 	private long lastMissile;
 	private GameOverAnimation gameOver = null;
 
+	private long score;
+	
 	@Override
 	public void create()
 	{
@@ -35,6 +37,8 @@ public class Game extends ApplicationAdapter
 		lastMissile = System.currentTimeMillis();
 
 		moustache = Moustache.getMoustache();
+		
+		score = 0;
 	}
 
 	@Override
@@ -86,7 +90,10 @@ public class Game extends ApplicationAdapter
 		LinkedList<Missile> toRemove = new LinkedList<Missile>();
 		for (Missile missile : missiles)
 			if (missile.isOut())
+			{
 				toRemove.add(missile);
+				score -= 20;
+			}
 		missiles.removeAll(toRemove);
 	}
 
@@ -112,6 +119,7 @@ public class Game extends ApplicationAdapter
 				{
 					toRemoveMissile.add(missile);
 					toRemoveTache.add(tache);
+					score += 10;
 				}
 			}
 		}
