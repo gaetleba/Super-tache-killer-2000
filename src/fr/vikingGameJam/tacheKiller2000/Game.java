@@ -75,7 +75,7 @@ public class Game extends ApplicationAdapter
 		if (gameOver != null)
 		{
 			drawGameOver();
-			if(Gdx.input.isKeyPressed(Input.Keys.ENTER) || Gdx.input.isKeyPressed(Input.Keys.SPACE))
+			if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
 			{
 				restartGame();
 			}
