@@ -26,6 +26,7 @@ public class Game extends ApplicationAdapter
 	private GameOverAnimation gameOver = null;
 
 	private Score score;
+	private MessageScore message;
 	
 	@Override
 	public void create()
@@ -38,8 +39,9 @@ public class Game extends ApplicationAdapter
 		lastMissile = System.currentTimeMillis();
 
 		moustache = Moustache.getMoustache();
-		
-		score = new Score();
+
+		message = new MessageScore(this);
+		score = new Score(message);
 	}
 
 	@Override
@@ -69,6 +71,7 @@ public class Game extends ApplicationAdapter
 			taches.add(Tache.getTache(moustache));
 		  
 		score.draw(batch);
+		message.draw(batch);
 		
 		batch.end();
 
