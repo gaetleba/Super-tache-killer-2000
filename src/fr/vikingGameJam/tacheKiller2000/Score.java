@@ -1,6 +1,5 @@
 package fr.vikingGameJam.tacheKiller2000;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -41,6 +40,11 @@ public class Score extends BitmapFont
 	public void sub(int val)
 	{
 		score -= val;
+	}
+	
+	public long getValue()
+	{
+		return score;
 	}
 	
 	public void draw(SpriteBatch batch)
