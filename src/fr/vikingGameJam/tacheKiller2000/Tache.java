@@ -23,19 +23,21 @@ public class Tache extends Animation
 
 	public static Tache getTache(Moustache moustache)
 	{
+		int iaNumber = (int) (Math.random() * 3);
 		int nbFrames = 4;
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = 64;
 		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/tache_4.png"), i
+			tacheFrames[i] = new Sprite(new Texture("assets/tache_"+iaNumber+".png"), i
 					* width, 0, width, height);
-		Tache tache = new Tache(8.0F, tacheFrames, moustache);
+		Tache tache = new Tache(8.0F, tacheFrames, moustache,
+				iaNumber);
 		return tache;
 	}
 
 	private Tache(float frameDuration, TextureRegion[] keyFrames,
-			Moustache moustache)
+			Moustache moustache, int iaNumber)
 	{
 		super(frameDuration, keyFrames);
 
@@ -48,12 +50,11 @@ public class Tache extends Animation
 
 		setPlayMode(Animation.PlayMode.LOOP);
 		coordY = Game.HEIGHT - size;
-		coordX = (int)(Math.random() * Game.WIDTH);
-		valueForMove = (int)(Math.random() * 15) + 20;
+		coordX = (int) (Math.random() * Game.WIDTH);
+		valueForMove = (int) (Math.random() * 15) + 20;
 		valueForMoveActual = 0;
 		this.moustache = moustache;
-
-		iaNumber = (int) (Math.random() * 3);
+		this.iaNumber = iaNumber;
 	}
 
 	public int getCoordX()
@@ -86,7 +87,6 @@ public class Tache extends Animation
 	public void move()
 	{
 		coordY -= 2 * Game.getDifficulty();
-		;
 
 		switch (iaNumber)
 		{
