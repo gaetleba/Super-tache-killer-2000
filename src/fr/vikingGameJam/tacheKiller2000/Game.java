@@ -2,8 +2,6 @@ package fr.vikingGameJam.tacheKiller2000;
 
 import java.util.LinkedList;
 
-import org.lwjgl.Sys;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -35,7 +33,7 @@ public class Game extends ApplicationAdapter
 		batch = new SpriteBatch();
 		stateTime = 0;
 		taches = new LinkedList<Tache>();
-		missiles = new LinkedList<>();
+		missiles = new LinkedList<Missile>();
 		difficulty = 1;
 		lastMissile = System.currentTimeMillis();
 
