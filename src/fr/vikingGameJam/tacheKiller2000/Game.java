@@ -35,6 +35,8 @@ public class Game extends ApplicationAdapter
 	Sound soundMoustache ;
 	Sound soundLaught    ;
 	Sound soundShoot     ;
+	Sound music          ;
+	long musicId;
 	
 	
 
@@ -60,14 +62,16 @@ public class Game extends ApplicationAdapter
 		soundMoustache = Gdx.audio.newSound(new FileHandle("assets/sounds/moustache.wav"));
 		soundLaught    = Gdx.audio.newSound(new FileHandle("assets/sounds/laught.wav"));
 		soundShoot     = Gdx.audio.newSound(new FileHandle("assets/sounds/shoot.wav"));
+		music          = Gdx.audio.newSound(new FileHandle("assets/sounds/theme_sound.wav"));
 		soundMoustache.play();
+		musicId = music.loop();
 	}
 
 	@Override
 	public void render()
 	{
 		stateTime++;
-
+		music.setPitch(musicId, (difficulty+13.0f)/14.0f);
 		if (gameOver != null)
 		{
 			drawGameOver();
