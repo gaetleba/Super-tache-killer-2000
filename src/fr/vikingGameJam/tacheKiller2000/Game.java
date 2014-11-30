@@ -25,7 +25,7 @@ public class Game extends ApplicationAdapter
 	private long lastMissile;
 	private GameOverAnimation gameOver = null;
 
-	private long score;
+	private Score score;
 	
 	@Override
 	public void create()
@@ -39,7 +39,7 @@ public class Game extends ApplicationAdapter
 
 		moustache = Moustache.getMoustache();
 		
-		score = 0;
+		score = new Score();
 	}
 
 	@Override
@@ -67,13 +67,13 @@ public class Game extends ApplicationAdapter
 					tache.getCoordY());
 		if (stateTime % 100/difficulty == 0)
 			taches.add(Tache.getTache(moustache));
-		
-		new BitmapFont().draw(batch, "Score : " + score, 10, 30);   
+		  
+		score.draw(batch);
 		
 		batch.end();
 
-		score -= 20 * removeOut(taches);
-		score -= 15 * removeOut(missiles);
+		score.sub(20 * removeOut(taches));
+		score.sub(15 * removeOut(missiles));
 		checkCollisions();
 
 		if (stateTime % (10 / difficulty) == 0 && difficulty <= 10)
@@ -112,7 +112,7 @@ public class Game extends ApplicationAdapter
 				{
 					toRemoveMissile.add(missile);
 					toRemoveTache.add(tache);
-					score += 10;
+					score.add(10);
 				}
 			}
 		}
