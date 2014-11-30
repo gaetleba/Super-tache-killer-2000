@@ -38,6 +38,11 @@ public class Score extends BitmapFont
 		score -= val;
 	}
 	
+	public long getValue()
+	{
+		return score;
+	}
+	
 	public void draw(SpriteBatch batch)
 	{
 		if(++translate >= 100 && (int)(Math.random() * 5) == 0)
