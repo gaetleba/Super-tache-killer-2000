@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -29,6 +31,12 @@ public class Game extends ApplicationAdapter
 	private LevelUpAnimation levelUp = null;
 
 	private Score score;
+	Sound soundGameOver  ;
+	Sound soundMoustache ;
+	Sound soundLaught    ;
+	Sound soundShoot     ;
+	
+	
 
 	private static Sprite backgroundSprite;
 
@@ -48,6 +56,11 @@ public class Game extends ApplicationAdapter
 
 		backgroundSprite = new Sprite(new Texture("assets/background.png"), 0,
 				0, 800, 800);
+		soundGameOver  = Gdx.audio.newSound(new FileHandle("assets/sounds/game_over.wav"));
+		soundMoustache = Gdx.audio.newSound(new FileHandle("assets/sounds/moustache.wav"));
+		soundLaught    = Gdx.audio.newSound(new FileHandle("assets/sounds/laught.wav"));
+		soundShoot     = Gdx.audio.newSound(new FileHandle("assets/sounds/shoot.wav"));
+		soundMoustache.play();
 	}
 
 	@Override
@@ -58,7 +71,7 @@ public class Game extends ApplicationAdapter
 		if (gameOver != null)
 		{
 			drawGameOver();
-			if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
+			if(Gdx.input.isKeyPressed(Input.Keys.ENTER) || Gdx.input.isKeyPressed(Input.Keys.SPACE))
 			{
 				restartGame();
 			}
@@ -108,6 +121,7 @@ public class Game extends ApplicationAdapter
 		{
 			difficulty += 1;
 			levelUp = LevelUpAnimation.getLevelUp();
+			soundLaught.play();
 		}
 	}
 
@@ -159,6 +173,7 @@ public class Game extends ApplicationAdapter
 		if (gameOver != null)
 			return;
 		gameOver = GameOverAnimation.getInstance();
+		soundGameOver.play();
 
 	}
 	
@@ -171,6 +186,7 @@ public class Game extends ApplicationAdapter
 		difficulty = 1;
 		lastMissile = System.currentTimeMillis();
 		score = new Score();
+		soundMoustache.play();
 	}
 
 	private void drawGameOver()
@@ -202,6 +218,7 @@ public class Game extends ApplicationAdapter
 		{
 			missiles.add(Missile.getMissile(moustache));
 			lastMissile = System.currentTimeMillis() + 200;
+			soundShoot.play((float) 0.1);
 		}
 		for (Tache tache : taches)
 			tache.move();
