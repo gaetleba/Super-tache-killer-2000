@@ -9,7 +9,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -21,46 +20,38 @@ public class Game extends ApplicationAdapter
 	private static float difficulty;
 
 	SpriteBatch batch;
-	Texture moustacheTexture;
 	private float stateTime;
 	private Moustache moustache;
 	private LinkedList<Tache> taches;
 	private LinkedList<Missile> missiles;
-	private boolean gameOver;
 	
 	private long lastMissile;
+	private GameOverAnimation gameOver = null;
 
 	@Override
 	public void create()
 	{
 		batch = new SpriteBatch();
-		moustacheTexture = new Texture("assets/moustache.png");
 		stateTime = 0;
 		taches = new LinkedList<Tache>();
 		missiles = new LinkedList<>();
 		difficulty = 1;
-		gameOver = false;
 		lastMissile = System.currentTimeMillis();
 
-		{// Creation moustache
-			int nbFrames = 16;
-			Sprite[] moustacheFrames = new Sprite[nbFrames];
-			int width = 128;
-			int height = 64;
-			for (int i = 0; i < nbFrames; i++)
-				moustacheFrames[i] = new Sprite(moustacheTexture, i * width, 0,
-						width, height);
-			moustache = new Moustache(2.0F, moustacheFrames);
-			moustache.setPlayMode(PlayMode.LOOP);
-		}
+		moustache = Moustache.getMoustache();
 	}
 
 	@Override
 	public void render()
 	{
-		if (gameOver)
+		stateTime++;
+		
+		if (gameOver != null)
+		{
+			drawGameOver();
 			return;
-
+		}
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -74,14 +65,13 @@ public class Game extends ApplicationAdapter
 			batch.draw(tache.getKeyFrame(stateTime), tache.getCoordX(),
 					tache.getCoordY());
 		if (stateTime % 100 == 0)
-			taches.add(createTache());
+			taches.add(Tache.getTache(moustache));
 		batch.end();
 
 		removeOutTaches();
 		removeOutMissiles();
 		checkCollisions();
 
-		stateTime++;
 		if (stateTime % (50 / difficulty) == 0 && difficulty <= 10)
 			difficulty += 0.1;
 	}
@@ -119,22 +109,9 @@ public class Game extends ApplicationAdapter
 
 	private void gameOver()
 	{
-		if (gameOver)
-		{
-			drawGameOver();
+		if (gameOver != null)
 			return;
-		}
-		int nbFrames = 1;
-		Sprite[] moustacheFrames = new Sprite[nbFrames];
-		int width = 400;
-		int height = 200;
-		for (int i = 0; i < nbFrames; i++)
-			moustacheFrames[i] = new Sprite(
-					new Texture("assets/game_over.png"), i * width, 0, width,
-					height);
-		moustache = new Moustache(2.0F, moustacheFrames);
-		moustache.setPlayMode(PlayMode.LOOP);
-		gameOver = true;
+		gameOver = GameOverAnimation.getInstance();
 
 	}
 
@@ -144,7 +121,7 @@ public class Game extends ApplicationAdapter
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.begin();
-		batch.draw(moustache.getKeyFrame(stateTime), moustache.getCoordX(), 0);
+		batch.draw(gameOver.getKeyFrame(stateTime), (WIDTH-GameOverAnimation.WIDTH)/2, (HEIGHT-GameOverAnimation.HEIGHT)/2);
 		batch.end();
 	}
 
@@ -166,19 +143,6 @@ public class Game extends ApplicationAdapter
 			missile.move();
 	}
 
-	private Tache createTache()
-	{
-		int nbFrames = 4;
-		Sprite[] tacheFrames = new Sprite[nbFrames];
-		int width = 64;
-		int height = 64;
-		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/tache_4.png"), i
-					* width, 0, width, height);
-		Tache tache = new Tache(8.0F, tacheFrames, moustache);
-		return tache;
-	}
-	
 	private void createMissile()
 	{
 		int nbFrames = 4;
