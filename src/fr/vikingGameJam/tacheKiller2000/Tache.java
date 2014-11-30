@@ -170,4 +170,8 @@ public class Tache extends Animation implements Outable
 	{
 		return coordX + SIZE;
 	}
+
+	public int getIaNum() {
+		return iaNumber;
+	}
 }

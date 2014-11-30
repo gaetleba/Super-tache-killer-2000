@@ -25,6 +25,7 @@ public class Game extends ApplicationAdapter
 	private Moustache moustache;
 	private LinkedList<Tache> taches;
 	private LinkedList<Missile> missiles;
+	private LinkedList<TacheDeathAnimation> deathAnimations;
 
 	private long lastMissile;
 	private GameOverAnimation gameOver = null;
@@ -49,7 +50,7 @@ public class Game extends ApplicationAdapter
 		missiles = new LinkedList<Missile>();
 		difficulty = 1;
 		lastMissile = System.currentTimeMillis();
-
+		deathAnimations = new LinkedList<TacheDeathAnimation>();
 		moustache = Moustache.getMoustache();
 
 		score = new Score();
@@ -95,6 +96,9 @@ public class Game extends ApplicationAdapter
 		for (Tache tache : taches)
 			batch.draw(tache.getKeyFrame(stateTime), tache.getCoordX(),
 					tache.getCoordY());
+		for (TacheDeathAnimation deathTache : deathAnimations)
+			batch.draw(deathTache.getKeyFrame(), deathTache.getCoorX(),
+					deathTache.getCoorY());
 		if (stateTime % 100 / difficulty == 0)
 			taches.add(Tache.getTache(moustache));
 
@@ -139,6 +143,7 @@ public class Game extends ApplicationAdapter
 	{
 		LinkedList<Missile> toRemoveMissile = new LinkedList<Missile>();
 		LinkedList<Tache> toRemoveTache = new LinkedList<Tache>();
+		LinkedList<TacheDeathAnimation> toRemoveDeadTache = new LinkedList<TacheDeathAnimation>();
 		for (Tache tache : taches)
 		{
 			if (tache.getCoordY() < moustache.getHeight() - 10
@@ -164,6 +169,16 @@ public class Game extends ApplicationAdapter
 			}
 		}
 
+		for (TacheDeathAnimation deadTache : deathAnimations)
+		{
+			if(deadTache.getStateTime() > 50)
+				toRemoveDeadTache.add(deadTache);
+		}
+		for (Tache deadTache : toRemoveTache)
+		{
+			deathAnimations.add(TacheDeathAnimation.getTacheDeathAnimation(deadTache.getCoordX(),deadTache.getCoordY(),deadTache.getIaNum()));
+		}
+		deathAnimations.removeAll(toRemoveDeadTache);
 		taches.removeAll(toRemoveTache);
 		missiles.removeAll(toRemoveMissile);
 	}
