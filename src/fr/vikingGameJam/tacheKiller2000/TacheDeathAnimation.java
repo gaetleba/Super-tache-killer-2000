@@ -20,7 +20,7 @@ public class TacheDeathAnimation extends Animation
 
 	private TacheDeathAnimation(TextureRegion[] keyFrames, int iaNumber, int x, int y)
 	{
-		super(15.0F, keyFrames);
+		super(4.0F, keyFrames);
 
 		setPlayMode(Animation.PlayMode.NORMAL);
 		coordY = y;
