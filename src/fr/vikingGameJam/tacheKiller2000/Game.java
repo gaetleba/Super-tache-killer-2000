@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Game extends ApplicationAdapter
 {
-	public static final int WIDTH = 600;
+	public static final int WIDTH = 800;
 	public static final int HEIGHT = 860;
 
 	private static float difficulty;
