@@ -9,7 +9,7 @@ public class GameOverAnimation extends Animation
 {
 	private static GameOverAnimation instance = null;
 	public static final int WIDTH = 512;
-	public static final int HEIGHT = 256;
+	public static final int HEIGHT = 128;
 
 	public static GameOverAnimation getInstance()
 	{
