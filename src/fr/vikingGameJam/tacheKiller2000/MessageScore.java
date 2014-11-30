@@ -48,9 +48,6 @@ public class MessageScore
 	{
 		if(messageActuel == 0 && this.message.containsKey(new Integer((int) score)))
 			messageActuel = (int)score;
-		System.out.println(messageActuel);
-		System.out.println(score);
-		System.out.println((int)score);
 	}
 	
 	public void draw(SpriteBatch batch)
