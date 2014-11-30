@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Moustache extends Animation
 {
 	private int coordX;
-	private final int WIDTH = 128;
+	public static final int WIDTH = 128;
 	private static Moustache instance;
 
 	public static Moustache getMoustache()

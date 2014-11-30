@@ -103,8 +103,10 @@ public class Game extends ApplicationAdapter
 			
 			for(Missile missile : missiles)
 			{
-				if(missile.getCoordX() < tache.getCoordX() &&
-					tache.getCoordX() < (missile.getCoordX() + Missile.SIZE) &&
+				if(((missile.getCoordX() < tache.getCoordX() &&
+					tache.getCoordX() < (missile.getCoordX() + Missile.SIZE)) ||
+					(missile.getCoordX() < tache.getCoordX() + Tache.SIZE &&
+					tache.getCoordX() + Tache.SIZE < (missile.getCoordX() + Missile.SIZE))) &&
 					missile.getCoordY() < tache.getCoordY() &&
 					tache.getCoordY() < missile.getCoordY() + Missile.SIZE)
 				{
