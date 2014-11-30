@@ -29,10 +29,9 @@ public class Tache extends Animation implements Outable
 		int width = 64;
 		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/tache_"+iaNumber+".png"), i
-					* width, 0, width, height);
-		Tache tache = new Tache(8.0F, tacheFrames, moustache,
-				iaNumber);
+			tacheFrames[i] = new Sprite(new Texture("assets/tache_" + iaNumber
+					+ ".png"), i * width, 0, width, height);
+		Tache tache = new Tache(8.0F, tacheFrames, moustache, iaNumber);
 		return tache;
 	}
 
@@ -50,8 +49,8 @@ public class Tache extends Animation implements Outable
 
 		setPlayMode(Animation.PlayMode.LOOP);
 		coordY = Game.HEIGHT - SIZE;
-		coordX = (int)(Math.random() * Game.WIDTH);
-		valueForMove = (int)(Math.random() * 15) + 20;
+		coordX = (int) (Math.random() * Game.WIDTH);
+		valueForMove = (int) (Math.random() * 15) + 20;
 		valueForMoveActual = 0;
 		this.moustache = moustache;
 		this.iaNumber = iaNumber;
@@ -90,7 +89,7 @@ public class Tache extends Animation implements Outable
 
 		switch (iaNumber)
 		{
-		case 1:
+		case 1: // blue
 			if (++valueForMoveActual < 0)
 			{
 				if (!moveLeft())
@@ -105,24 +104,22 @@ public class Tache extends Animation implements Outable
 				valueForMoveActual = -valueForMove;
 			break;
 
-		case 2:
+		case 2: // Rouge, suiveuse
 			if (moustache.getCenterX() < getCenterX())
 				moveLeft();
 			else
 				moveRight();
 			break;
 
-		case 3:
+		case 3: //vert  TP
 			if (++valueForMoveActual == 100)
 			{
 				valueForMoveActual = 0;
-				if(coordY > 100)
-					coordY -= -10 + (int)(Math.random() * 20);
-				
-				coordX = (int)(Math.random() * (Game.WIDTH - SIZE));
-			}
+				if (coordY > 128)
+					coordY += 10 + (int) (Math.random() * 20);
 
-		default:
+				coordX = (int) (Math.random() * (Game.WIDTH - SIZE));
+			}
 			if ((int) (Math.random() * 2) == 0)
 			{
 				if (!moveLeft())
@@ -132,13 +129,16 @@ public class Tache extends Animation implements Outable
 				moveLeft();
 			}
 			break;
+		default: //jaune
+			coordY -= (int)(Math.random() * 10);
+			break;
 		}
 
 	}
 
 	public int getCenterX()
 	{
-		return coordX + SIZE/2;
+		return coordX + SIZE / 2;
 	}
 
 	public boolean moveLeft()

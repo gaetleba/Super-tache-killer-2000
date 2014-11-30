@@ -16,7 +16,8 @@ public class Game extends ApplicationAdapter
 {
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 760;
-	private final int LEVEL_MAX = 15;
+	private final int LEVEL_MAX = 12;
+	private int insulte;
 
 	private static float difficulty;
 
@@ -32,12 +33,12 @@ public class Game extends ApplicationAdapter
 	private LevelUpAnimation levelUp = null;
 
 	private Score score;
-	Sound soundGameOver  ;
-	Sound soundMoustache ;
-	Sound soundLaught    ;
-	Sound soundShoot     ;
-	
-	
+	Sound soundGameOver;
+	Sound soundMoustache;
+	Sound soundLaught;
+	Sound soundShoot;
+	Sound music;
+	long musicId;
 
 	private static Sprite backgroundSprite;
 
@@ -57,22 +58,30 @@ public class Game extends ApplicationAdapter
 
 		backgroundSprite = new Sprite(new Texture("assets/background.png"), 0,
 				0, 800, 800);
-		soundGameOver  = Gdx.audio.newSound(new FileHandle("assets/sounds/game_over.wav"));
-		soundMoustache = Gdx.audio.newSound(new FileHandle("assets/sounds/moustache.wav"));
-		soundLaught    = Gdx.audio.newSound(new FileHandle("assets/sounds/laught.wav"));
-		soundShoot     = Gdx.audio.newSound(new FileHandle("assets/sounds/shoot.wav"));
+		soundGameOver = Gdx.audio.newSound(new FileHandle(
+				"assets/sounds/game_over.wav"));
+		soundMoustache = Gdx.audio.newSound(new FileHandle(
+				"assets/sounds/moustache.wav"));
+		soundLaught = Gdx.audio.newSound(new FileHandle(
+				"assets/sounds/laught.wav"));
+		soundShoot = Gdx.audio.newSound(new FileHandle(
+				"assets/sounds/shoot.wav"));
+		music = Gdx.audio.newSound(new FileHandle(
+				"assets/sounds/theme_sound.wav"));
 		soundMoustache.play();
+		musicId = music.loop();
 	}
 
 	@Override
 	public void render()
 	{
 		stateTime++;
-
+		music.setPitch(musicId, (difficulty + 13.0f) / 14.0f);
 		if (gameOver != null)
 		{
 			drawGameOver();
-			if(Gdx.input.isKeyPressed(Input.Keys.ENTER) || Gdx.input.isKeyPressed(Input.Keys.SPACE))
+			
+			if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
 			{
 				restartGame();
 			}
@@ -189,9 +198,9 @@ public class Game extends ApplicationAdapter
 			return;
 		gameOver = GameOverAnimation.getInstance();
 		soundGameOver.play();
-
+		insulte = (int) (Math.random() * 15);
 	}
-	
+
 	private void restartGame()
 	{
 		gameOver = null;
@@ -213,9 +222,6 @@ public class Game extends ApplicationAdapter
 		batch.draw(gameOver.getKeyFrame(stateTime),
 				(WIDTH - GameOverAnimation.WIDTH) / 2,
 				(HEIGHT - GameOverAnimation.HEIGHT) / 2);
-		int insulte = (int) ((score.getValue()+99) / 100);
-		if (insulte < 0)
-			insulte = 0;
 		batch.draw(Messages.getInstance().getKeyFrame(insulte),
 				(WIDTH - Messages.WIDTH) / 2,
 				(HEIGHT - GameOverAnimation.HEIGHT) / 3);
