@@ -12,13 +12,12 @@ public class TacheDeathAnimation extends Animation
 
 	public static int SIZE = 128;
 
-	private int iaNumber;
 	private int stateTime;
 
 	public static int frameNumber = 4;
 	public static int frameNumberCpt = 0;
 
-	private TacheDeathAnimation(TextureRegion[] keyFrames, int iaNumber, int x, int y)
+	private TacheDeathAnimation(TextureRegion[] keyFrames, int x, int y)
 	{
 		super(4.0F, keyFrames);
 
@@ -26,7 +25,6 @@ public class TacheDeathAnimation extends Animation
 		coordY = y;
 		coordX = x;
 		stateTime = 0;
-		this.iaNumber = iaNumber;
 	}
 	
 	public static TacheDeathAnimation getTacheDeathAnimation(int x, int y, int iaNumber){
@@ -54,7 +52,7 @@ public class TacheDeathAnimation extends Animation
 			tacheFrames[i] = new Sprite(texture, i
 					* width, 0, width, height);
 		}
-		return new TacheDeathAnimation(tacheFrames, iaNumber, x-32, y-32);
+		return new TacheDeathAnimation(tacheFrames, x-32, y-32);
 		
 		
 	}
