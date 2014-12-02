@@ -6,7 +6,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -56,18 +55,18 @@ public class Game extends ApplicationAdapter
 
 		score = new Score();
 
-		backgroundSprite = new Sprite(new Texture("assets/background.png"), 0,
+		backgroundSprite = new Sprite(new Texture(Gdx.files.internal("img/background.png")), 0,
 				0, 800, 800);
-		soundGameOver = Gdx.audio.newSound(new FileHandle(
-				"assets/sounds/game_over.wav"));
-		soundMoustache = Gdx.audio.newSound(new FileHandle(
-				"assets/sounds/moustache.wav"));
-		soundLaught = Gdx.audio.newSound(new FileHandle(
-				"assets/sounds/laught.wav"));
-		soundShoot = Gdx.audio.newSound(new FileHandle(
-				"assets/sounds/shoot.wav"));
-		music = Gdx.audio.newSound(new FileHandle(
-				"assets/sounds/theme_sound.wav"));
+		soundGameOver = Gdx.audio.newSound(Gdx.files.internal(
+				"sounds/game_over.wav"));
+		soundMoustache = Gdx.audio.newSound(Gdx.files.internal(
+				"sounds/moustache.wav"));
+		soundLaught = Gdx.audio.newSound(Gdx.files.internal(
+				"sounds/laught.wav"));
+		soundShoot = Gdx.audio.newSound(Gdx.files.internal(
+				"sounds/shoot.wav"));
+		music = Gdx.audio.newSound(Gdx.files.internal(
+				"sounds/theme_sound.wav"));
 		soundMoustache.play();
 		musicId = music.loop();
 	}

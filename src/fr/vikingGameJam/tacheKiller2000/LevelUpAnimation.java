@@ -1,5 +1,6 @@
 package fr.vikingGameJam.tacheKiller2000;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -17,7 +18,7 @@ public class LevelUpAnimation extends Animation
 		int nbFrames = 2;
 		Sprite[] frames = new Sprite[nbFrames];
 		for (int i = 0; i < nbFrames; i++)
-			frames[i] = new Sprite(new Texture("assets/levelup.png"), i
+			frames[i] = new Sprite(new Texture(Gdx.files.internal("img/levelup.png")), i
 					* WIDTH, 0, WIDTH, HEIGHT);
 		animation = new LevelUpAnimation(2.0F, frames);
 		animation.setPlayMode(PlayMode.LOOP_RANDOM);

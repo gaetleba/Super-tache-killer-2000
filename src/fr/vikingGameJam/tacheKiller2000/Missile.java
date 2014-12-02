@@ -1,5 +1,6 @@
 package fr.vikingGameJam.tacheKiller2000;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,7 +23,7 @@ public class Missile extends Animation implements Outable
 		int width = 64;
 		int height = 64;
 		for (int i = 0; i < nbFrames; i++)
-			tacheFrames[i] = new Sprite(new Texture("assets/mousse.png"), i
+			tacheFrames[i] = new Sprite(new Texture(Gdx.files.internal("img/mousse.png")), i
 					* width, 0, width, height);
 		return new Missile(moustache.getCoordX(), tacheFrames);
 	}

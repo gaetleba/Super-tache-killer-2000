@@ -1,5 +1,6 @@
 package fr.vikingGameJam.tacheKiller2000;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,60 +27,48 @@ public class TacheDeathAnimation extends Animation
 		coordX = x;
 		stateTime = 0;
 	}
-	
-	public static TacheDeathAnimation getTacheDeathAnimation(int x, int y, int iaNumber){
+
+	public static TacheDeathAnimation getTacheDeathAnimation(int x, int y,
+			int iaNumber)
+	{
 		int nbFrames = 4;
 		Sprite[] tacheFrames = new Sprite[nbFrames];
 		int width = SIZE;
 		int height = SIZE;
-		Texture texture ;
-		switch(iaNumber){
-		case 1:
-			texture = new Texture("assets/tache-mort-bleu.png");
-			break;
-		case 2:
-			texture = new Texture("assets/tache-mort-rouge.png");
-			break;
-		case 3:
-			texture = new Texture("assets/tache-mort-vert.png");
-			break;
-		default :
-			texture = new Texture("assets/tache-mort-marron.png");	
-			break;
-		}
+		Texture texture = new Texture(Gdx.files.internal("img/tache_mort_"
+				+ iaNumber + ".png"));
 		for (int i = 0; i < nbFrames; i++)
 		{
-			tacheFrames[i] = new Sprite(texture, i
-					* width, 0, width, height);
+			tacheFrames[i] = new Sprite(texture, i * width, 0, width, height);
 		}
-		return new TacheDeathAnimation(tacheFrames, x-32, y-32);
-		
-		
+		return new TacheDeathAnimation(tacheFrames, x - 32, y - 32);
+
 	}
-	
-	public int getStateTime(){
+
+	public int getStateTime()
+	{
 		return stateTime;
 	}
-	
+
 	public TextureRegion getKeyFrame()
 	{
-		stateTime ++;
+		stateTime++;
 		return super.getKeyFrame(stateTime);
 	}
-	
+
 	public int getCoorX()
 	{
 		return coordX;
 	}
-	
+
 	public int getCoorY()
 	{
 		return coordY;
 	}
-	
+
 	public int getCenterX()
 	{
-		return coordX + SIZE/2;
+		return coordX + SIZE / 2;
 	}
 
 	public int getRightCorner()

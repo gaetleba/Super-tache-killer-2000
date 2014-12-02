@@ -1,5 +1,6 @@
 package fr.vikingGameJam.tacheKiller2000;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -15,7 +16,7 @@ public class Moustache extends Animation
 	{
 		if (instance == null)
 		{
-			Texture moustacheTexture = new Texture("assets/moustache.png");
+			Texture moustacheTexture = new Texture(Gdx.files.internal("img/moustache.png"));
 			int nbFrames = 16;
 			Sprite[] moustacheFrames = new Sprite[nbFrames];
 			int width = 128;
